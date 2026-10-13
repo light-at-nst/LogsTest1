@@ -1,0 +1,23 @@
+from pathlib import Path
+from logs import grouplogs,forgroupelem
+
+def testgroups() -> dict[str,list[str]]:
+    fp = str(Path(__file__).parent/'c4-class-even/demo_logs.log')
+
+    typs=('INFO','WARNING','DEBUG','ERROR')
+    cats=tuple(map(lambda s: '['+s+']',typs))
+
+    return grouplogs(fp,cats)
+
+def testprint() -> None:
+    groups=testgroups()
+    sep='-'*50
+    print(sep)
+    print()
+    for k in groups:
+        forgroupelem(groups,k,print)
+        print(sep)
+        print()
+
+if __name__=='__main__':
+    testprint()
