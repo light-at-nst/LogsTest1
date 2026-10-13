@@ -1,8 +1,11 @@
 from pathlib import Path
-from logs import grouplogsfromfile,forgroupelem
+from logs import *
+
+def getpath(rel:str) -> str:
+    return str(Path(__file__).parent/rel)
 
 def testgroups() -> dict[str,list[str]]:
-    fp = str(Path(__file__).parent/'c4-class-even/demo_logs.log')
+    fp = getpath('c4-class-even/demo_logs.log')
 
     typs=('INFO','WARNING','DEBUG','ERROR')
     cats=tuple(map(lambda s: '['+s+']',typs))
@@ -19,5 +22,14 @@ def testprint() -> None:
         print(sep)
         print()
 
+def testwrites() -> None:
+    folder=getpath('logsout/demo')
+    groups=testgroups()
+    Path(folder).mkdir(parents=True,exist_ok=True)
+    for k in groups:
+        writelogs(f"{folder}/demo_{k[1:-1]}.log",groups[k],True)
+
+
+
 if __name__=='__main__':
-    testprint()
+    testwrites()
