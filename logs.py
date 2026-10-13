@@ -11,10 +11,9 @@ def grouplogs(fp:str,types:Sequence[str]) -> dict[str,list[str]]:
     return groups
 
 
-def grprint(groups:dict,key:str) -> None:
+def forgroupelem(groups:dict,key:str,do:Callable[[str],object]) -> None:
     gr=groups[key]
-    for line in gr:
-        print(line)
+    for line in gr: do(line)
 
 
 def testgroups() -> dict[str,list[str]]:
@@ -31,7 +30,7 @@ def testprint() -> None:
     print(sep)
     print()
     for k in groups:
-        grprint(groups,k)
+        forgroupelem(groups,k,print)
         print(sep)
         print()
 
