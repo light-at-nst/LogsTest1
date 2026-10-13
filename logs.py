@@ -1,32 +1,38 @@
-fp='c4-class-even/demo_logs.log'
+from collections.abc import Sequence, Callable;
 
-types=('INFO','WARNING','DEBUG','ERROR')
-
-cat=tuple(map(lambda s: '['+s+']',types))
-groups={t:[] for t in cat}
-
-with open(fp, 'r') as file:
-    while (line := file.readline()):
-        for c in cat:
-            if c in line:
-                groups[c].append(line)
-                break
+def grouplogs(fp:str,types:Sequence[str]) -> dict[str,list[str]]:
+    groups={t:[] for t in types}
+    with open(fp, 'r') as file:
+        while (line := file.readline()):
+            for c in types:
+                if c in line:
+                    groups[c].append(line)
+                    break
+    return groups
 
 
-def grprint(key:str):
-    if key[0]!='[' and key[-1]!=']':
-        key='['+key+']'
+def grprint(groups:dict,key:str) -> None:
     gr=groups[key]
     for line in gr:
         print(line)
 
-# grprint('INFO')
 
-sep='-'*50
+def testgroups() -> dict[str,list[str]]:
+    fp='c4-class-even/demo_logs.log'
 
-for k in cat:
+    typs=('INFO','WARNING','DEBUG','ERROR')
+    cats=tuple(map(lambda s: '['+s+']',typs))
+
+    return grouplogs(fp,cats)
+
+def testprint() -> None:
+    groups=testgroups()
+    sep='-'*50
     print(sep)
     print()
-    grprint(k)
-print(sep)
+    for k in groups:
+        grprint(groups,k)
+        print(sep)
+        print()
 
+testprint()
