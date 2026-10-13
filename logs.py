@@ -15,7 +15,7 @@ def catlog(line:str,groups:dict[str,list[str]],types:Sequence[str]) -> dict[str,
         if t in line:
             groups[t].append(line)
             break
-    return groups
+    return groups   # return for easy chaining
 
 
 def grouplogs(logs:Sequence[str],types:Sequence[str]) -> dict[str,list[str]]:
@@ -27,8 +27,8 @@ def grouplogs(logs:Sequence[str],types:Sequence[str]) -> dict[str,list[str]]:
 def grouplogsfromfile(fp:str,types:Sequence[str]) -> dict[str,list[str]]:
     groups={t:[] for t in types}
     with open(fp, 'r') as file:
-        while (line := file.readline().rstrip('\n')):
-            catlog(line,groups,types)
+        for line in file:
+            catlog(line.rstrip('\n'),groups,types)
     return groups
 
 
