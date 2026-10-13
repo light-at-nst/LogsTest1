@@ -15,7 +15,7 @@ def testprint() -> None:
     print(sep)
     print()
     for k in groups:
-        forgroupelem(groups,k,print)
+        forgroupelem(groups,k,lambda l: print(l,end='\n\n'))
         print(sep)
         print()
 
