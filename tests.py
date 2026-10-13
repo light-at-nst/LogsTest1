@@ -1,5 +1,5 @@
 from pathlib import Path
-from logs import grouplogs,forgroupelem
+from logs import grouplogsfromfile,forgroupelem
 
 def testgroups() -> dict[str,list[str]]:
     fp = str(Path(__file__).parent/'c4-class-even/demo_logs.log')
@@ -7,7 +7,7 @@ def testgroups() -> dict[str,list[str]]:
     typs=('INFO','WARNING','DEBUG','ERROR')
     cats=tuple(map(lambda s: '['+s+']',typs))
 
-    return grouplogs(fp,cats)
+    return grouplogsfromfile(fp,cats)
 
 def testprint() -> None:
     groups=testgroups()
