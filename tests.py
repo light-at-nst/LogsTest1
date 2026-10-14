@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 from pathlib import Path
+from collections import Counter
 from logs import *
 
 def getpath(rel:str) -> str:
@@ -30,7 +33,22 @@ def testwrites() -> None:
         writelogs(f"{folder}/demo_{k[1:-1]}.log",groups[k],True)
 
 
+def test1() -> None:
+    fp=getpath('c5-class-morn/my-9-1s.log')
+    logs=readlogs(fp)
+    pos=7
+    count=Counter()
+    for line in logs:
+        fields=line.split()
+        if len(fields) > pos:
+            count[fields[pos]] += 1
+    print("Top5:\n")
+    for item, n in count.most_common(5):
+        print(item,n)
+
+    
 
 if __name__=='__main__':
     # testprint()
-    testwrites()
+    # testwrites()
+    test1()
