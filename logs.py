@@ -32,7 +32,6 @@ def grouplogsfromfile(fp:str,types:Sequence[str]) -> dict[str,list[str]]:
     return groups
 
 
-def forgroupelem(groups:dict,key:str,do:Callable[[str],object]) -> None:
-    gr=groups[key]
-    for line in gr: do(line)
+def forgroupelem(group:list[str],do:Callable[[str],object]) -> None:
+    for line in group: do(line)
 

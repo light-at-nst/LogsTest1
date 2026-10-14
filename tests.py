@@ -18,7 +18,7 @@ def testprint() -> None:
     print(sep)
     print()
     for k in groups:
-        forgroupelem(groups,k,lambda l: print(l,end='\n\n'))
+        forgroupelem(groups[k],lambda l: print(l,end='\n\n'))
         print(sep)
         print()
 
@@ -32,4 +32,5 @@ def testwrites() -> None:
 
 
 if __name__=='__main__':
+    # testprint()
     testwrites()
